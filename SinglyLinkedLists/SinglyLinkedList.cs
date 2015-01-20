@@ -76,7 +76,7 @@ namespace SinglyLinkedLists
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void Sort()

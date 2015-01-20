@@ -15,14 +15,30 @@ namespace SinglyLinkedLists
         private SinglyLinkedListNode next;
         public SinglyLinkedListNode Next
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return this.next; }
+
+            set 
+            { 
+                if (value == this)
+                    throw new ArgumentException("Can't set Next to this");
+                this.next = value; 
+            }
         }
 
-        private string value;
-        public string Value 
+        private string value; // field
+        public string Value  // property
         {
-            get { throw new NotImplementedException(); }
+            get { return this.value; }
+        }
+
+        public override string ToString()
+        {
+            return Value;
+        }
+
+        public bool Equals(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
+        {
+            return node1.Value.Equals(node2.Value);
         }
 
         public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
@@ -39,8 +55,7 @@ namespace SinglyLinkedLists
 
         public SinglyLinkedListNode(string value)
         {
-            throw new NotImplementedException();
-
+            this.value = value;
             // Used by the visualizer:
             allNodes.Add(this);
         }
@@ -48,12 +63,18 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
         public int CompareTo(Object obj)
         {
-            throw new NotImplementedException();
+            if (obj == null) return 1;
+
+            SinglyLinkedListNode otherNode = obj as SinglyLinkedListNode;
+            if (otherNode != null) 
+                return this.value.CompareTo(otherNode.value);
+            else 
+               throw new ArgumentException("Object is not a Node");
         }
 
         public bool IsLast()
         {
-            throw new NotImplementedException();
+            return (this.next == null);
         }
     }
 }
