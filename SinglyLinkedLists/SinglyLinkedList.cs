@@ -138,7 +138,7 @@ namespace SinglyLinkedLists
             if (LastNode() != null)
                 return LastNode().Value;
             else
-                throw new NotImplementedException();
+                return null;
         }
 
         public void Remove(string value)
@@ -155,6 +155,16 @@ namespace SinglyLinkedLists
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            if (EmptyList())
+                return "{ }";
+            else
+                return ("{ \"" + ElementAt(0).ToString() + "\" }" );
+        }
+
+        // PRIVATE HELPER METHOD(S)
 
         private SinglyLinkedListNode LastNode()
         {
