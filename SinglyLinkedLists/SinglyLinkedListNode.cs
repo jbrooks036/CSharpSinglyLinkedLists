@@ -36,9 +36,15 @@ namespace SinglyLinkedLists
             return Value;
         }
 
-        public bool Equals(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
+        public override bool Equals(Object obj) 
         {
-            return node1.Value.Equals(node2.Value);
+            SinglyLinkedListNode otherNode = obj as SinglyLinkedListNode;
+
+            if (otherNode == null)
+                return false;
+            else
+                return this.value.Equals(otherNode.value);
+
         }
 
         public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)

@@ -11,6 +11,7 @@ namespace SinglyLinkedLists
 
         public SinglyLinkedList()
         {
+            firstNode = null;
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
         }
 
@@ -23,8 +24,15 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
         public string this[int i]
         {
-            get { throw new NotImplementedException(); }
+            get { 
+                throw new NotImplementedException(); 
+            }
             set { throw new NotImplementedException(); }
+        }
+
+        public bool EmptyList()
+        {
+            return (firstNode == null);
         }
 
         public void AddAfter(string existingValue, string value)
@@ -35,6 +43,19 @@ namespace SinglyLinkedLists
         public void AddFirst(string value)
         {
             throw new NotImplementedException();
+/*
+            if (firstNode == null)
+            {
+                AddLast(value);
+            }
+            else
+            {
+                SinglyLinkedListNode oldFirstNode = firstNode;
+                SinglyLinkedListNode newFirstNode = new SinglyLinkedListNode(value);
+
+                newFirstNode.Next = oldFirstNode;
+            }
+*/
         }
 
         public void AddLast(string value)
@@ -45,19 +66,19 @@ namespace SinglyLinkedLists
             }
             else
             {
-                firstNode.Next = new SinglyLinkedListNode(value);
+                SinglyLinkedListNode currentNode = firstNode;
+                SinglyLinkedListNode cacheNode = null;
+
+                while (currentNode.Next != null)
+                {
+                    cacheNode = currentNode;
+                    currentNode = currentNode.Next;
+                }
+
+                SinglyLinkedListNode newNode = new SinglyLinkedListNode(value);
+                newNode.Next = null;
+                currentNode.Next = newNode;
             }
-        }
-
-        // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
-        public int Count()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string ElementAt(int index)
-        {
-            throw new NotImplementedException();
         }
 
         public string First()
@@ -71,6 +92,33 @@ namespace SinglyLinkedLists
                 return firstNode.Value;
             }
         }
+
+        // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
+        public int Count()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ElementAt(int index)
+        {
+            SinglyLinkedListNode currentNode = firstNode;
+            SinglyLinkedListNode cacheNode = null;
+
+            if (currentNode == null)
+                throw new ArgumentOutOfRangeException("empty list");
+
+            for (int i = 0; i < index; i++)
+            {
+                if (currentNode == null)
+                    throw new ArgumentOutOfRangeException("index out of range");
+
+                cacheNode = currentNode;
+                currentNode = currentNode.Next;
+            }
+
+            return currentNode.Value;
+        }
+
 
         public int IndexOf(string value)
         {
@@ -87,7 +135,10 @@ namespace SinglyLinkedLists
         // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
         public string Last()
         {
-            throw new NotImplementedException();
+            if (LastNode() != null)
+                return LastNode().Value;
+            else
+                throw new NotImplementedException();
         }
 
         public void Remove(string value)
@@ -103,6 +154,29 @@ namespace SinglyLinkedLists
         public string[] ToArray()
         {
             throw new NotImplementedException();
+        }
+
+        private SinglyLinkedListNode LastNode()
+        {
+            SinglyLinkedListNode lastNode = null;
+
+            if (firstNode == null)
+            {
+                lastNode = null;
+            }
+            else
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                SinglyLinkedListNode cacheNode = null;
+
+                while (currentNode.Next != null)
+                {
+                    cacheNode = currentNode;
+                    currentNode = currentNode.Next;
+                }
+                lastNode = currentNode;
+            }
+            return lastNode;
         }
     }
 }
