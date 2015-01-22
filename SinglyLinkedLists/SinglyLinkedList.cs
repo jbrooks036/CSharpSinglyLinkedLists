@@ -96,7 +96,26 @@ namespace SinglyLinkedLists
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            throw new NotImplementedException();
+            int count = 0;
+
+            if (firstNode == null)
+            {
+                return count;
+            }
+            else
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                SinglyLinkedListNode cacheNode = null;
+                count = 1;
+
+                while (currentNode.Next != null)
+                {
+                    cacheNode = currentNode;
+                    currentNode = currentNode.Next;
+                    count++;
+                }
+            }
+            return count;
         }
 
         public string ElementAt(int index)
@@ -153,7 +172,36 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            throw new NotImplementedException();
+            if (EmptyList())
+                return new string[] { };
+            else if (firstNode.Next == null)
+            {
+                string[] arrayOneItem = new string[] { ElementAt(0).ToString() };
+                return arrayOneItem;
+            }
+            else
+            {
+                // string[] returnArray = this.ToArray();
+
+                string returnString = ToString();
+                string[] returnArray = new String[Count()];
+                returnArray = returnString;
+                return;
+/*
+                StringBuilder sb = new StringBuilder();
+
+                sb.Append("{ \"");
+                for (SinglyLinkedListNode node = firstNode; node.Next != null; node = node.Next)
+                {
+                    sb.Append(node.Value);
+                    sb.Append("\", \"");
+                }   
+
+                sb.Append(Last());
+                sb.Append("\" }");
+                return (new string[] sb);
+*/
+            }
         }
 
         public override string ToString()
