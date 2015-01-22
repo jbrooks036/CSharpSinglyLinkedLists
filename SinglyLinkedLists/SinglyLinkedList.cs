@@ -160,8 +160,22 @@ namespace SinglyLinkedLists
         {
             if (EmptyList())
                 return "{ }";
+            else if (firstNode.Next == null)
+                return ("{ \"" + ElementAt(0).ToString() + "\" }");
             else
-                return ("{ \"" + ElementAt(0).ToString() + "\" }" );
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("{ \"");
+                for (SinglyLinkedListNode node = firstNode; node.Next != null; node = node.Next)
+                {
+                    sb.Append(node.Value);
+                    sb.Append("\", \"");
+                }   
+
+                sb.Append(Last());
+                sb.Append("\" }");
+                return sb.ToString();
+            }
         }
 
         // PRIVATE HELPER METHOD(S)
