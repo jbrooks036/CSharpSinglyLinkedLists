@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -181,26 +182,20 @@ namespace SinglyLinkedLists
             }
             else
             {
-                // string[] returnArray = this.ToArray();
+                // use C# ArrayList
 
-                string returnString = ToString();
-                string[] returnArray = new String[Count()];
-                returnArray = returnString;
-                return;
-/*
-                StringBuilder sb = new StringBuilder();
+                ArrayList aList = new ArrayList();
 
-                sb.Append("{ \"");
-                for (SinglyLinkedListNode node = firstNode; node.Next != null; node = node.Next)
+                SinglyLinkedListNode node = firstNode;
+
+                int length = Count();
+                for (int i = 0; i < length; i++)
                 {
-                    sb.Append(node.Value);
-                    sb.Append("\", \"");
-                }   
+                    aList.Add(ElementAt(i));
+                }
 
-                sb.Append(Last());
-                sb.Append("\" }");
-                return (new string[] sb);
-*/
+                string[] array = aList.ToArray(typeof(string)) as string[];
+                return array;
             }
         }
 
