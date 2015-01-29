@@ -43,20 +43,17 @@ namespace SinglyLinkedLists
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
-/*
             if (firstNode == null)
             {
-                AddLast(value);
+                firstNode = new SinglyLinkedListNode(value);
             }
             else
             {
                 SinglyLinkedListNode oldFirstNode = firstNode;
                 SinglyLinkedListNode newFirstNode = new SinglyLinkedListNode(value);
-
                 newFirstNode.Next = oldFirstNode;
+                firstNode = newFirstNode;
             }
-*/
         }
 
         public void AddLast(string value)
