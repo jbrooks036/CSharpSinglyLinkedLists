@@ -9,10 +9,12 @@ namespace SinglyLinkedLists
     public class SinglyLinkedList
     {
         private SinglyLinkedListNode firstNode;
+        private int length;
 
         public SinglyLinkedList()
         {
             firstNode = null;
+            length = 0;
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
         }
 
@@ -31,14 +33,34 @@ namespace SinglyLinkedLists
             set { throw new NotImplementedException(); }
         }
 
-        public bool EmptyList()
-        {
-            return (firstNode == null);
-        }
-
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
+            // find existingValue in list 
+            if (firstNode == null)
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                SinglyLinkedListNode cacheNode = null;
+                bool found = false;
+
+                while (currentNode.Next != null)
+                {
+                    if (currentNode.Equals(value))
+                    {
+                        cacheNode = currentNode.Next;
+                        currentNode.Next = new SinglyLinkedListNode(value);
+                        currentNode.Next.Next = cacheNode;
+                        length++;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    throw new ArgumentException();
+            }
         }
 
         public void AddFirst(string value)
@@ -46,6 +68,7 @@ namespace SinglyLinkedLists
             if (firstNode == null)
             {
                 firstNode = new SinglyLinkedListNode(value);
+                length++;
             }
             else
             {
@@ -53,6 +76,7 @@ namespace SinglyLinkedLists
                 SinglyLinkedListNode newFirstNode = new SinglyLinkedListNode(value);
                 newFirstNode.Next = oldFirstNode;
                 firstNode = newFirstNode;
+                length++;
             }
         }
 
@@ -61,6 +85,7 @@ namespace SinglyLinkedLists
             if (firstNode == null)
             {
                 firstNode = new SinglyLinkedListNode(value);
+                length++;
             }
             else
             {
@@ -76,6 +101,7 @@ namespace SinglyLinkedLists
                 SinglyLinkedListNode newNode = new SinglyLinkedListNode(value);
                 newNode.Next = null;
                 currentNode.Next = newNode;
+                length++;
             }
         }
 
@@ -139,7 +165,26 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            int index = 0;
+            if (firstNode == null)
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                SinglyLinkedListNode currentNode = firstNode;
+                while (currentNode.Next != null)
+                {
+                    if (currentNode.Equals(value))
+                    {
+                        break;
+                    }
+                    index++;
+                }
+            }
+            if (index > this.length)
+                index = -1;
+            return index;
         }
 
         public bool IsSorted()
@@ -219,6 +264,11 @@ namespace SinglyLinkedLists
         }
 
         // PRIVATE HELPER METHOD(S)
+
+        private bool EmptyList()
+        {
+            return (firstNode == null);
+        }
 
         private SinglyLinkedListNode LastNode()
         {
